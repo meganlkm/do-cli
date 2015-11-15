@@ -1,0 +1,6 @@
+Pygments
+click
+dopy
+pygments-json
+redis
+six
