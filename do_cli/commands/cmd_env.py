@@ -19,4 +19,5 @@ def cli(ctx):
     envdict['ctx'] = ctx.all()
     click.echo(format_json(envdict))
 
-    click.echo('---- cmd_env done ----')
+    if ctx.verbose:
+        click.echo('---- cmd_env done ----')

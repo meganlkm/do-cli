@@ -43,9 +43,8 @@ Commands:
   droplets           Droplets CRUD
   env                Display DigitalOcean environment variables
   flush-cache        clear the cache
-  host               Minimal droplet info (merge with list)
   images             List Images
-  list               Minimal droplet info (merge with host)
+  list               Minimal droplet info
   regions            List Regions
   sizes              List Sizes
   ssh-keys           List SSH keys

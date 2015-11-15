@@ -79,6 +79,7 @@ DROPLET_ACTIONS = {
     'show': show,
 }
 
+
 @click.command('droplets')
 @click.option('-f', '--force-refresh', is_flag=True, help='Pull data from the API')
 @click.option('--droplet-id', type=click.INT, help='the id of the droplet to act on')
