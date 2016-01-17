@@ -8,8 +8,7 @@ def list_all(ctx):
     """
     List Droplets as JSON
     """
-    droplets = get_objects('droplets', ctx.cache_max_age, ctx.do_conn, ctx.verbose)
-    return format_response(droplets, ctx.pretty)
+    return get_objects('droplets', ctx.cache_max_age, ctx.do_conn, ctx.verbose)
 
 
 def create(ctx):
@@ -27,7 +26,7 @@ def create(ctx):
     if ctx.verbose:
         click.echo(response)
         click.echo('---- cmd_droplets:create done -----')
-    return format_response(response, ctx.pretty)
+    return response
 
 
 def destroy(ctx):
@@ -48,7 +47,7 @@ def destroy(ctx):
         click.echo(response)
         click.echo('---- cmd_droplets:destroy done ----')
 
-    return format_response(response, ctx.pretty)
+    return response
 
 
 def show(ctx):
@@ -69,7 +68,7 @@ def show(ctx):
         click.echo(response)
         click.echo('---- cmd_droplets:show done ----')
 
-    return format_response(response, ctx.pretty)
+    return response
 
 
 DROPLET_ACTIONS = {
@@ -110,7 +109,7 @@ def cli(ctx, force_refresh, droplet_id, create, destroy, show, name):
         action = 'show'
 
     response = DROPLET_ACTIONS[action](ctx)
-    click.echo(response)
+    click.echo(format_response(response, ctx.pretty))
 
     if ctx.verbose:
         click.echo('---- cmd_droplets done ----')

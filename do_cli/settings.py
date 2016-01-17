@@ -12,6 +12,8 @@ PKG_DIR = os.path.join(THIS_DIR, 'do_cli')
 #================================================
 #   Caching
 #================================================
-REDIS_CONNINFO = {'host': os.getenv('{}REDIS_HOST'.format(ENV_PREFIX), 'localhost'),
-                  'port': os.getenv('{}REDIS_PORT'.format(ENV_PREFIX), '6379'),
-                  'db': os.getenv('{}REDIS_DB'.format(ENV_PREFIX), '0')}
+REDIS_CONNINFO = {
+    'host': os.getenv('{}REDIS_HOST'.format(ENV_PREFIX), 'localhost'),
+    'port': os.getenv('{}REDIS_PORT'.format(ENV_PREFIX), '6379'),
+    'db': os.getenv('{}REDIS_DB'.format(ENV_PREFIX), '0')
+}
