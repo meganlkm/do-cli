@@ -31,7 +31,7 @@ def get_hosts(droplets, host_names):
             "public": droplet["image"]["public"],
             "region_slug": droplet["region"]["slug"],
             "region_name": droplet["region"]["name"],
-            "ip_address": "162.243.19.146"
+            "ip_address": droplet["ip_address"]
         }
 
     if len(host_names):
