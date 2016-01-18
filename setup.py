@@ -21,7 +21,7 @@ REQUIREMENTS = getReqs()
 
 setup(
     name='do_cli',
-    version='0.0.1',
+    version='0.0.2',
     packages=find_packages(),
     include_package_data=True,
     description='manage digitalocean stuff',
