@@ -1,6 +1,6 @@
 import click
 from do_cli.contexts import CTX
-from do_cli.formatters.colors import format_json
+from do_cli.formatters import format_json
 from do_cli.settings import get_env
 
 

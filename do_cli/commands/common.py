@@ -2,7 +2,7 @@ import click
 from do_cli.cache import DO_CACHE
 from do_cli.utils.helpers import str2list
 from do_cli.utils.json_helpers import byteify
-from do_cli.formatters.colors import format_json
+from do_cli.formatters import format_json
 
 
 def format_response(data, pretty):

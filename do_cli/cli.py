@@ -4,7 +4,7 @@ import click
 from do_cli.cache import DO_CACHE
 from do_cli.contexts import CTX, DigitalOceanCLI
 from do_cli.digitalocean import DigitalOceanConnection
-from do_cli.formatters.colors import format_json
+from do_cli.formatters import format_json
 from do_cli.settings import BASE_DIR
 
 
