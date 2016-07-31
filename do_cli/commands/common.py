@@ -31,7 +31,8 @@ def get_hosts(droplets, host_names):
             "public": droplet["image"]["public"],
             "region_slug": droplet["region"]["slug"],
             "region_name": droplet["region"]["name"],
-            "ip_address": droplet["ip_address"]
+            "ip_address": droplet["ip_address"],
+            "created_at": droplet["created_at"]
         }
 
     if len(host_names):
@@ -47,7 +48,6 @@ def host_commands(ctx, force_refresh, host_names):
     if force_refresh:
         if ctx.verbose:
             click.echo("Forcing refresh of droplets cache")
-
         ctx.cache.delete('droplets')
 
     objs = get_objects('droplets', ctx.cache_max_age, ctx.client, ctx.verbose)
