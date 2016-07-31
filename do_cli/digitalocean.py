@@ -1,3 +1,5 @@
+import fnmatch
+
 from dopy.manager import DoManager
 from do_cli.exceptions import DoEnvironmentError
 
@@ -51,7 +53,30 @@ class DigitalOceanClient(object):
             return self.method_map[name](**params)
         return self.method_map[name]()
 
-    def get_images(self, options=None):
-        if options is None:
-            options = {'filter': None}
-        return self.manager.all_images(**options)
+    def get_images(self, filter_opts=dict()):
+        images = self.manager.all_images()
+        if len(filter_opts):
+            tmp_images = []
+            for img in images:
+                tmp = []
+                for key, value in filter_opts.iteritems():
+                    if isinstance(value, bool):
+                        if img[key] is value:
+                            tmp.append(img)
+                    elif isinstance(value, list):
+                        if set(value).issubset(img[key]):
+                            tmp.append(img)
+                    elif value is None or any([isinstance(value, int), isinstance(value, float)]):
+                        if value == img[key]:
+                            tmp.append(img)
+                    else:
+                        try:
+                            if fnmatch.fnmatch(img[key], value):
+                                tmp.append(img)
+                        except:
+                            if img[key] == value:
+                                tmp.append(img)
+                if len(tmp) == len(filter_opts.keys()):
+                    tmp_images.append(img)
+            images = tmp_images
+        return {'images': images, 'count': len(images)}
