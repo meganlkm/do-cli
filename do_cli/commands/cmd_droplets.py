@@ -1,14 +1,14 @@
 import click
 from do_cli.contexts import CTX
 from do_cli.commands.common import format_response, get_objects
-from do_cli.digitalocean import DoMissingVariableError
+from do_cli.exceptions import DoMissingVariableError
 
 
 def list_all(ctx):
     """
     List Droplets as JSON
     """
-    return get_objects('droplets', ctx.cache_max_age, ctx.do_conn, ctx.verbose)
+    return get_objects('droplets', ctx.cache_max_age, ctx.client, ctx.verbose)
 
 
 def create(ctx):
@@ -22,7 +22,7 @@ def create(ctx):
             'image_id': ctx.image_id, 'region_id': ctx.region_id,
             'ssh_key_ids': [ctx.ssh_key_id, ]}
 
-    response = ctx.do_conn.do_stuff('create_droplet', conf)
+    response = ctx.client.do_stuff('create_droplet', conf)
     if ctx.verbose:
         click.echo(response)
         click.echo('---- cmd_droplets:create done -----')
@@ -42,7 +42,7 @@ def destroy(ctx):
     if ctx.verbose:
         click.echo("Attempting to destroy droplet_id: {}".format(ctx.droplet_id))
 
-    response = ctx.do_conn.do_stuff('destroy_droplet', {'droplet_id': ctx.droplet_id})
+    response = ctx.client.do_stuff('destroy_droplet', {'droplet_id': ctx.droplet_id})
     if ctx.verbose:
         click.echo(response)
         click.echo('---- cmd_droplets:destroy done ----')
@@ -63,7 +63,7 @@ def show(ctx):
     if ctx.verbose:
         click.echo("Attempting to show droplet_id: {}".format(ctx.droplet_id))
 
-    response = ctx.do_conn.do_stuff('show_droplet', {'droplet_id': ctx.droplet_id})
+    response = ctx.client.do_stuff('show_droplet', {'droplet_id': ctx.droplet_id})
     if ctx.verbose:
         click.echo(response)
         click.echo('---- cmd_droplets:show done ----')

@@ -23,7 +23,7 @@ def cli(ctx, force_refresh):
     droplets = {}
     if inventory is None:
         inventory = {}
-        droplets = get_objects('droplets', ctx.cache_max_age, ctx.do_conn, ctx.verbose)
+        droplets = get_objects('droplets', ctx.cache_max_age, ctx.client, ctx.verbose)
 
         for droplet in droplets:
             dest = droplet['ip_address']

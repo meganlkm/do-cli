@@ -9,12 +9,12 @@ def format_response(data, pretty):
     return format_json(byteify(data)) if pretty else byteify(data)
 
 
-def get_objects(name, cache_max_age, do_connection, verbose=False):
+def get_objects(name, cache_max_age, client, verbose=False):
     objs = DO_CACHE.get_obj(name)
     if objs is None:
         if verbose:
             click.echo("Pulling {} from API".format(name))
-        objs = do_connection.do_stuff(name)
+        objs = client.do_stuff(name)
         DO_CACHE.set_obj(name, objs, cache_max_age)
     return byteify(objs)
 
@@ -50,6 +50,6 @@ def host_commands(ctx, force_refresh, host_names):
 
         ctx.cache.delete('droplets')
 
-    objs = get_objects('droplets', ctx.cache_max_age, ctx.do_conn, ctx.verbose)
+    objs = get_objects('droplets', ctx.cache_max_age, ctx.client, ctx.verbose)
     objs = get_hosts(objs, host_names)
     return format_response(objs, ctx.pretty)

@@ -2,7 +2,7 @@ from dopy.manager import DoManager
 from do_cli.exceptions import DoEnvironmentError
 
 
-class DigitalOceanConnection(object):
+class DigitalOceanClient(object):
 
     def __init__(self, api_version=None, api_token=None, client_id=None, api_key=None):
         self.api_version = int(api_version)

@@ -16,7 +16,7 @@ def cli(ctx, force_refresh):
     if force_refresh:
         ctx.cache.delete('regions')
 
-    regions = get_objects('regions', ctx.cache_max_age, ctx.do_conn, ctx.verbose)
+    regions = get_objects('regions', ctx.cache_max_age, ctx.client, ctx.verbose)
     click.echo(format_response(regions, ctx.pretty))
 
     if ctx.verbose:

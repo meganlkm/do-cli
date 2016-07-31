@@ -16,7 +16,7 @@ def cli(ctx, force_refresh):
     if force_refresh:
         ctx.cache.delete('sizes')
 
-    sizes = get_objects('sizes', ctx.cache_max_age, ctx.do_conn, ctx.verbose)
+    sizes = get_objects('sizes', ctx.cache_max_age, ctx.client, ctx.verbose)
     click.echo(format_response(sizes, ctx.pretty))
 
     if ctx.verbose:

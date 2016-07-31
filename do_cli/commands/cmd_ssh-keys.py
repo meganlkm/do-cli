@@ -16,7 +16,7 @@ def cli(ctx, force_refresh):
     if force_refresh:
         ctx.cache.delete('ssh_keys')
 
-    ssh_keys = get_objects('ssh_keys', ctx.cache_max_age, ctx.do_conn, ctx.verbose)
+    ssh_keys = get_objects('ssh_keys', ctx.cache_max_age, ctx.client, ctx.verbose)
     click.echo(format_response(ssh_keys, ctx.pretty))
 
     if ctx.verbose:

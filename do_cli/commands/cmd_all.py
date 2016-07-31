@@ -17,7 +17,7 @@ def cli(ctx, force_refresh):
     for obj in ['regions', 'images', 'sizes', 'ssh_keys', 'domains', 'droplets']:
         if force_refresh:
             ctx.cache.delete(obj)
-        data[obj] = get_objects(obj, ctx.cache_max_age, ctx.do_conn, ctx.verbose)
+        data[obj] = get_objects(obj, ctx.cache_max_age, ctx.client, ctx.verbose)
     click.echo(format_response(data, ctx.pretty))
 
     if ctx.verbose:

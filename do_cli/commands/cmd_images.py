@@ -16,7 +16,7 @@ def cli(ctx, force_refresh):
     if force_refresh:
         ctx.cache.delete('images')
 
-    images = get_objects('images', ctx.cache_max_age, ctx.do_conn, ctx.verbose)
+    images = get_objects('images', ctx.cache_max_age, ctx.client, ctx.verbose)
     click.echo(format_response(images, ctx.pretty))
 
     if ctx.verbose:
