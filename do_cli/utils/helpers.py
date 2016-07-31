@@ -1,10 +1,6 @@
 import os
 
 
-def get_env_var(key):
-    return os.getenv(key.upper(), None)
-
-
 def exists(src):
     """ alias for os.path.exists """
     return os.path.exists(src)

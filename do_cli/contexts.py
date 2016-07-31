@@ -1,9 +1,11 @@
 import os
 import sys
-import click
 from ConfigParser import SafeConfigParser
-from do_cli.settings import PKG_DIR
-from do_cli.utils.helpers import get_env_var, exists
+
+import click
+
+from do_cli.settings import get_env, PKG_DIR
+from do_cli.utils.helpers import exists
 
 CMD_FOLDER = os.path.join(PKG_DIR, 'commands')
 
@@ -37,8 +39,7 @@ class DigitalOceanContext(SafeConfigParser, object):
     def read_environment(self):
         for env_var in ['client_id', 'api_key', 'api_token', 'api_version', 'image_id',
                         'ssh_key_id', 'wait_timeout', 'size_id', 'region_id']:
-            value = get_env_var('do_{}'.format(env_var))
-            self.__dict__[env_var] = value
+            self.__dict__[env_var] = get_env(env_var)
 
     def setvar(self, name, value):
         if value is not None:
