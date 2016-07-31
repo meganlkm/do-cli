@@ -4,3 +4,5 @@ dopy
 pygments-json
 redis
 six
+
+# git+git://github.com/john2x/solarized-pygment.git#egg=solarized-pygment

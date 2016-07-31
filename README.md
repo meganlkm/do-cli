@@ -19,6 +19,7 @@ Next, copy env.template to .env and set the variables to your configuration. The
 pip install .
 
 # for development:
+pip install git+git://github.com/john2x/solarized-pygment.git#egg=solarized-pygment
 pip install --editable .
 ````
 
