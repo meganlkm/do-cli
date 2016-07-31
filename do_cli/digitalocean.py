@@ -23,7 +23,8 @@ class DigitalOceanClient(object):
             'droplets': self.manager.all_active_droplets,
             'destroy_droplet': self.manager.destroy_droplet,
             'create_droplet': self.manager.new_droplet,
-            'show_droplet': self.manager.show_droplet
+            'show_droplet': self.manager.show_droplet,
+            'snapshot_droplet': self.manager.snapshot_droplet,
         }
 
     def validate_config(self):

@@ -1,3 +1,5 @@
+from datetime import datetime
+
 import click
 from do_cli.contexts import CTX
 from do_cli.commands.common import format_response, get_objects
@@ -71,11 +73,34 @@ def show(ctx):
     return response
 
 
+def snapshot(ctx):
+    if ctx.verbose:
+        click.echo("Create a snapshot")
+
+    if ctx.droplet_id is None:
+        raise DoMissingVariableError("Missing droplet_id")
+
+    if ctx.name is None:
+        ctx.name = datetime.utcnow().strftime('%Y%m%d-%H%M%S')
+
+    params = {'droplet_id': ctx.droplet_id, 'name': ctx.name}
+    if ctx.verbose:
+        click.echo("Attempting to create snapshot: {}".format(params))
+
+    response = ctx.client.do_stuff('snapshot_droplet', params)
+    if ctx.verbose:
+        click.echo(response)
+        click.echo('---- cmd_droplets:show done ----')
+
+    return response
+
+
 DROPLET_ACTIONS = {
     'list': list_all,
     'create': create,
     'destroy': destroy,
     'show': show,
+    'snapshot': snapshot,
 }
 
 
@@ -85,9 +110,10 @@ DROPLET_ACTIONS = {
 @click.option('--create', is_flag=True, help='Create a new droplet')
 @click.option('--destroy', is_flag=True, help='Destroy a droplet')
 @click.option('--show', is_flag=True, help='Show a droplet')
+@click.option('--snapshot', is_flag=True, help='Create a snapshot')
 @click.option('--name', help='name of a new droplet')
 @CTX
-def cli(ctx, force_refresh, droplet_id, create, destroy, show, name):
+def cli(ctx, force_refresh, droplet_id, create, destroy, show, name, snapshot):
     """
     Droplet CRUD
     """
@@ -107,6 +133,8 @@ def cli(ctx, force_refresh, droplet_id, create, destroy, show, name):
         action = 'destroy'
     elif show:
         action = 'show'
+    elif snapshot:
+        action = 'snapshot'
 
     response = DROPLET_ACTIONS[action](ctx)
     click.echo(format_response(response, ctx.pretty))
